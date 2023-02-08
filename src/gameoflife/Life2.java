@@ -124,5 +124,21 @@ public class Life2 {
 		}
 		return nAlive;
 	}
-
+	
+	public static boolean isBorn(boolean[][] cells, int row, int col) {
+		boolean status;
+		boolean[][] neighbors = neighborhood(cells,row,col);
+		int nAlive = numAlive(neighbors);
+		if(nAlive == 3) {
+			status = true;
+		}else {
+			status = false;
+		}
+		return status;
+	}
+	
+	public static boolean survive (boolean[][] cells, int row, int col) {
+		
+		return false;
+	}
 }
