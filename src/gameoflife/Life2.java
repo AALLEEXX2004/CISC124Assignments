@@ -1,5 +1,9 @@
 package gameoflife;
-
+import java.util.Random;
+import java.nio.file.FileSystem;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.List;
 
 public class Life2 {
 
@@ -126,19 +130,64 @@ public class Life2 {
 	}
 	
 	public static boolean isBorn(boolean[][] cells, int row, int col) {
-		boolean status;
+		
 		boolean[][] neighbors = neighborhood(cells,row,col);
 		int nAlive = numAlive(neighbors);
 		if(nAlive == 3) {
-			status = true;
-		}else {
-			status = false;
+			return true;
 		}
-		return status;
+		return false;
+		
 	}
 	
 	public static boolean survive (boolean[][] cells, int row, int col) {
-		
+
+		boolean[][] neighbors = neighborhood(cells,row,col);
+		int nAlive = numAlive(neighbors);
+		if((nAlive == 3)||(nAlive == 4)) {
+			return true;
+		}
 		return false;
 	}
+	
+	public static void evolve(boolean[][] cells) {
+		boolean[][] copy = clone(cells);
+		for(int i = 0;i<cells.length;i++) {
+			for(int j=0;j<cells[0].length;j++) {
+				if(cells[i][j] == true) {
+					cells[i][j] = survive(copy,i,j);
+				}else {
+					cells[i][j] = isBorn(copy,i,j);
+				}
+			}
+		}
+	}
+	public static void randomize(boolean[][]cells) {
+		Random rand = new Random();
+		for(int i=0;i<cells.length;i++) {
+			for(int j=0;j<cells[i].length;j++) {
+				cells[i][j] = rand.nextBoolean();
+			}
+		}
+	}
+	
+	public static boolean insert(boolean[][] pattern,int row,int col,boolean[][] cells) {
+		if(row<0||col<0) {
+			throw new IllegalArgumentException();
+		}
+		
+		int rowRemain = cells.length - row - pattern.length;
+		int colRemain = cells[0].length - col - pattern[0].length;
+		if(rowRemain<0||colRemain<0) {
+			return false;
+		}
+		for(int i=0;i<pattern.length;i++) {
+			for(int j=0;j<pattern[0].length;j++) {
+				cells[row+i][col+j] = pattern[i][j];
+			}
+		}
+		return true;
+	}
+	
+	
 }
