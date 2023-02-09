@@ -1,6 +1,7 @@
 package gameoflife;
 import java.util.Random;
 import java.nio.file.FileSystem;
+import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
@@ -189,5 +190,30 @@ public class Life2 {
 		return true;
 	}
 	
-	
+	public static boolean[][] read(String filename){
+		try {
+			Path path = FileSystems.getDefault().getPath("patterns", filename);
+			List<String> lines = Files.readAllLines(path);
+			int rows = lines.size();
+			int cols = lines.get(0).split("").length;
+			boolean[][] cells = new boolean[rows][cols];
+			
+			for(int i=0;i<rows;i++) {
+				String[] cellsOnRow = lines.get(i).split("");
+				for(int j=0;j<cols;j++) {
+					if(cellsOnRow[j].equals("#")) {
+						cells[i][j] = true;
+					}else {
+						cells[i][j] = false;
+					}
+				}
+			}
+			return cells;
+			
+		}catch(Exception ex){
+			ex.printStackTrace();
+			System.exit(1);
+		}
+		return null;
+	}
 }
