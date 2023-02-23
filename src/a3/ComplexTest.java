@@ -94,7 +94,7 @@ public class ComplexTest {
 	@Test
 	public void test04_real() {
 		for (double re : ComplexTest.real) {
-			Complex c = Complex.real(re);
+			Complex c = Complex.real​(re);
 			assertEquals("real part is incorrect",
 					re, c.re(), Math.ulp(re));
 			assertEquals("imaginary part is incorrect",
@@ -108,7 +108,7 @@ public class ComplexTest {
 	@Test
 	public void test04_imag() {
 		for (double im : ComplexTest.imag) {
-			Complex c = Complex.imag(im);
+			Complex c = Complex.imag​(im);
 			assertEquals("real part is incorrect",
 					0.0, c.re(), Math.ulp(0.0));
 			assertEquals("imaginary part is incorrect",
@@ -183,7 +183,7 @@ public class ComplexTest {
 			Complex c = new Complex(v.first, v.second);
 			for (Pair w : ComplexTest.values) {
 				Complex d = new Complex(w.first, w.second);
-				Complex prod = c.multiply(d);
+				Complex prod = c.multiply​(d);
 				
 				// test the product
 				double exp = v.first * w.first - v.second * w.second;
