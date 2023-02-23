@@ -39,13 +39,13 @@ public class MandelbrotUtil {
 			IllegalArgumentException e = new IllegalArgumentException();
 			throw e;
 		}
+		Complex z = new Complex();
 		if(c.mag()>2) {
 			return 1;
 		}
-		Complex z = new Complex();
-		for(int i=1;i<=max;i++) {
-			double zMag = z.mag();
-			if(zMag>2) {
+		
+		for(int i=0;i<max;i++) {
+			if(z.mag()>2) {
 				return i;
 			}
 			z= (z.multiply​(z)).add(c);
